@@ -1,0 +1,7 @@
+id,name,robux_amount,price,description,image,is_active,created_at,updated_at
+1,Paket Starter,400,50000.0,Paket starter untuk pemula,starter.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00
+2,Paket Basic,800,95000.0,Paket basic dengan harga terjangkau,basic.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00
+3,Paket Popular,1700,185000.0,Paket paling populer,popular.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00
+4,Paket Premium,4500,475000.0,Paket premium dengan bonus Robux,premium.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00
+5,Paket Ultimate,10000,950000.0,Paket ultimate untuk kebutuhan besar,ultimate.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00
+6,Paket VIP,22500,1950000.0,Paket VIP eksklusif,vip.png,True,2026-10-01 08:00:00,2026-10-01 08:00:00

@@ -1,0 +1,81 @@
+{
+  "evaluated_at": "2026-11-12 04:34:16",
+  "overall_status": "PASSED",
+  "total_checks": 11,
+  "passed_checks": 11,
+  "failed_checks": 0,
+  "transaction_cleaning_metrics": {
+    "raw_rows": 614,
+    "duplicates_removed": 8,
+    "quarantined_rows": 6,
+    "clean_rows": 600
+  },
+  "checks": [
+    {
+      "check_name": "pk_unique_dim_users",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Unique user_ids: 31 / 31"
+    },
+    {
+      "check_name": "pk_unique_fact_transactions",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Unique transaction_ids: 600 / 600 (Removed 8 webhook duplicates)"
+    },
+    {
+      "check_name": "pii_governance_dim_users",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Password column dropped; 100% of user emails masked with '***'"
+    },
+    {
+      "check_name": "positive_transaction_amounts",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Min price=50000.0, Min robux=400 (Quarantined 6 invalid records)"
+    },
+    {
+      "check_name": "valid_transaction_status_enum",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Observed statuses: ['failed', 'pending', 'success']"
+    },
+    {
+      "check_name": "fk_integrity_tx_users",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Orphan user_ids in fact_transactions: 0"
+    },
+    {
+      "check_name": "fk_integrity_tx_packages",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Orphan package_ids in fact_transactions: 0"
+    },
+    {
+      "check_name": "fk_integrity_tx_payment_methods",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Orphan payment_method_keys: 0"
+    },
+    {
+      "check_name": "fk_integrity_tx_date",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Orphan date_keys in fact_transactions: 0"
+    },
+    {
+      "check_name": "non_empty_roblox_id",
+      "status": "PASSED",
+      "passed": true,
+      "details": "100% of loaded transactions have a valid target roblox_id"
+    },
+    {
+      "check_name": "minimum_warehouse_volume",
+      "status": "PASSED",
+      "passed": true,
+      "details": "Loaded 600 transactions and 1000 interaction logs"
+    }
+  ]
+}

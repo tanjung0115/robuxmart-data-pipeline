@@ -1,0 +1,13 @@
+# Environment & Secrets
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local SQLite fallback DB
+data/warehouse/*.db
+
+# Logs
+logs/*.log

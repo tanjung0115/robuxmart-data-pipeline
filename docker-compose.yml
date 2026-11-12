@@ -1,0 +1,70 @@
+services:
+  # 1. PostgreSQL Data Warehouse (OLAP)
+  postgres-dwh:
+    image: postgres:15-alpine
+    container_name: robuxmart-postgres-dwh
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DWH_USER:-dwh_admin}
+      POSTGRES_PASSWORD: ${DWH_PASSWORD:-dwh_secret_2026}
+      POSTGRES_DB: ${DWH_DB:-robuxmart_dwh}
+    ports:
+      - "${DWH_PORT:-5433}:5432"
+    volumes:
+      - dwh_pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DWH_USER:-dwh_admin} -d ${DWH_DB:-robuxmart_dwh}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dwh-network
+
+  # 2. Apache Airflow Orchestrator (Webserver + Scheduler)
+  airflow:
+    image: apache/airflow:2.9.3-python3.12
+    container_name: robuxmart-airflow
+    restart: unless-stopped
+    depends_on:
+      postgres-dwh:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+      _PIP_ADDITIONAL_REQUIREMENTS: "pymysql cryptography tabulate"
+      # Pipeline Environment Variables inside Airflow
+      SOURCE_MODE: mysql
+      MYSQL_HOST: host.docker.internal
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: robuxmart
+      MYSQL_USER: robuxmart
+      MYSQL_PASSWORD: robuxmart_secure_2024
+      DWH_ENGINE: postgres
+      DWH_HOST: postgres-dwh
+      DWH_PORT: "5432"
+      DWH_DB: robuxmart_dwh
+      DWH_USER: dwh_admin
+      DWH_PASSWORD: dwh_secret_2026
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - .:/opt/airflow/project
+    command: >
+      bash -c "airflow db migrate &&
+      airflow users create --username admin --firstname Admin --lastname RobuxMart --role Admin --email admin@robuxmart.com --password admin || true &&
+      airflow webserver --port 8080 & airflow scheduler"
+    networks:
+      - dwh-network
+
+volumes:
+  dwh_pgdata:
+    driver: local
+
+networks:
+  dwh-network:
+    driver: bridge

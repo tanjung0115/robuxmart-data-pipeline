@@ -1,0 +1,7 @@
+id,user_id,package_id,package_name,robux_amount,price,roblox_id,roblox_username,payment_method,payment_token,status,notes,created_at,updated_at,transaction_id,gross_amount_idr,payment_method_key,rejection_reason
+9001,2,1,Paket Starter,400,-50000.0,10000074,rblx_johndoe,QRIS,TOK-ERR-9001,success,Glitch negative price,2026-11-05 14:10:00,2026-11-05 14:10:05,9001,-50000.0,QRIS,INVALID_PRICE_LE_ZERO
+9002,3,2,Paket Basic,800,0.0,10000111,rblx_janesmith,GoPay,TOK-ERR-9002,success,Zero price exploit attempt,2026-11-06 11:20:00,2026-11-06 11:20:05,9002,0.0,GOPAY,INVALID_PRICE_LE_ZERO
+9003,4,3,Paket Popular,1700,185000.0,,,OVO,TOK-ERR-9003,pending,Missing roblox_id,2026-11-07 16:45:00,2026-11-07 16:45:05,9003,185000.0,OVO,MISSING_ROBLOX_ID
+9004,9999,1,Paket Starter,400,50000.0,10099999,ghost_user,DANA,TOK-ERR-9004,failed,Orphaned user_id,2026-11-08 19:00:00,2026-11-08 19:00:10,9004,50000.0,DANA,ORPHAN_USER_ID
+9005,5,4,Paket Premium,-4500,475000.0,10000185,rblx_budipratama,BCA_VA,TOK-ERR-9005,failed,Invalid robux_amount,2026-11-09 09:30:00,2026-11-09 09:30:05,9005,475000.0,BCA_VA,INVALID_ROBUX_AMOUNT_LE_ZERO
+9006,6,2,Paket Basic,800,95000.0,10000222,rblx_sitinur,QRIS,TOK-ERR-9006,refunded_unknown,Unsupported status enum,2026-11-10 21:15:00,2026-11-10 21:15:12,9006,95000.0,QRIS,INVALID_STATUS_ENUM
